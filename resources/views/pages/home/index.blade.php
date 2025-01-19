@@ -211,8 +211,8 @@
                                     <div class="col-lg-2 order-lg-1 order-2">
                                         <div
                                             class="event_date d-flex flex-column align-items-center justify-content-center">
-                                            <div class="event_day">07</div>
-                                            <div class="event_month">January</div>
+                                            {{-- <div class="event_day">07</div>
+                                            <div class="event_month">January</div> --}}
                                         </div>
                                     </div>
 

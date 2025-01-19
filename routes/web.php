@@ -30,10 +30,12 @@ Route::get('/login', [homeController::class, 'login'])->name('login');
 Route::post('/save-regis', [homeController::class, 'store'])->name('registration.store');
 Route::post('/login-data', [homeController::class, 'login_data'])->name('login_data');
 Route::get('/getPendaftaran', [homeController::class, 'getData'])->name('getPendaftaran');
-Route::get('/download-kartu', [homeController::class, 'downloadKartu'])->name('download-kartu');
+Route::get('/download-kartu/{id}', [homeController::class, 'downloadKartu'])->name('download-kartu');
 
 Route::get('/form-pendaftaran', [homeController::class, 'form_pendaftaran'])->name('form_pendaftaran');
 Route::post('/save-pendaftaran', [homeController::class, 'save_pendaftaran'])->name('save_pendaftaran');
+
+Route::post('/logout',[homeController::class,'logout'])->name('logout');
 
 // Route::redirect('/', '/dashboard');
 
@@ -132,4 +134,4 @@ Route::resource('user', UserControllers::class)->names([
 
 Route::get('/report_student', [LaporanController::class, 'laporanSiswa'])->name('laporan');
 Route::get('/printStudent', [LaporanController::class, 'printSiswa'])->name('laporan.siswa');
-Route::get('/laporanKeuangan', [LaporanController::class, 'laporanKeuangan'])->name('laporan.keuangan');
+Route::get('/printKeuangan', [LaporanController::class, 'printKeuangan'])->name('laporan.keuangan');

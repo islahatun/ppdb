@@ -14,6 +14,6 @@ class jurusan extends Model
     protected $dates = ['deleted_at'];
 
     public function student(){
-        return $this->hasMany(student::class,'jurusan','id');
+        return $this->hasMany(student::class,'jurusan_id','id');
     }
 }

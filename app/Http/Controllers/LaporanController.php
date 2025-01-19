@@ -29,7 +29,7 @@ class LaporanController extends Controller
 
         // Render view ke dalam PDF
         $pdf = Pdf::loadView('pages.laporan.print_laporan_siswa', $data)
-            ->setPaper([0, 0, 841.89, 1500], 'landscape');
+            ->setPaper([0, 0, 841.89, 900], 'landscape');
         return $pdf->download('Laporan Pendafataran.pdf');
     }
 
@@ -41,7 +41,7 @@ class LaporanController extends Controller
 
         // Render view ke dalam PDF
         $pdf = Pdf::loadView('pages.laporan.print_laporan_keuangan', $data)
-            ->setPaper([0, 0, 841.89, 1500], 'landscape');
+            ->setPaper([0, 0, 841.89, 900], 'landscape');
         return $pdf->download('Laporan Pendafataran.pdf');
     }
 }

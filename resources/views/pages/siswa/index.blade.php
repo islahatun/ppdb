@@ -143,25 +143,25 @@
                                     <div class="form-group row mb-4">
                                         <label class="col-form-label col-12 col-md-3 col-lg-3">Kartu Keluarga</label>
                                         <div class="col-sm-12 ">
-                                            <a  id="kk-link" href="" target="_blank">Kartu Keluarga</a>
+                                            <a id="kk-link" href="" target="_blank">Kartu Keluarga</a>
                                         </div>
                                     </div>
                                     <div class="form-group row mb-4">
                                         <label class="col-form-label col-12 col-md-3 col-lg-3">Akta</label>
                                         <div class="col-sm-12 ">
-                                            <a  id="akta-link" href="" target="_blank">Akta</a>
+                                            <a id="akta-link" href="" target="_blank">Akta</a>
                                         </div>
                                     </div>
                                     <div class="form-group row mb-4">
                                         <label class="col-form-label col-12 col-md-3 col-lg-3">Ijazah</label>
                                         <div class="col-sm-12 ">
-                                            <a  id="ijazah-link" href="" target="_blank">Ijazah</a>
+                                            <a id="ijazah-link" href="" target="_blank">Ijazah</a>
                                         </div>
                                     </div>
                                     <div class="form-group row mb-4">
-                                        <label class="col-form-label col-12 col-md-3 col-lg-3">Foto</label>
+                                        <label class="col-form-label col-12 col-md-3 col-lg-3">Foto Profil</label>
                                         <div class="col-sm-12 ">
-                                            <a  id="foto-link" href="" target="_blank">Foto</a>
+                                            <a id="profil-link" href="" target="_blank">Foto Profil</a>
                                         </div>
                                     </div>
 
@@ -282,11 +282,37 @@
 
 
 
-        if (data.ijazah) {
-            $("#ijazah-link").attr("href", data.ijazah);
-        } else {
-            $("#ijazah-link").attr("href", "#").text("Ijazah Tidak Tersedia");
-        }
+            if (data.ijazah) {
+                var imageUrl = "{{ Storage::url('url') }}".replace('url', data.ijazah)
+
+                $("#ijazah-link").attr("href",imageUrl);
+            } else {
+                $("#ijazah-link").attr("href", "#").text("Ijazah Tidak Tersedia");
+            }
+
+            if (data.kk) {
+                var imageUrl = "{{ Storage::url('url') }}".replace('url', data.kk)
+
+                $("#kk-link").attr("href",imageUrl);
+            } else {
+                $("#kk-link").attr("href", "#").text("kk Tidak Tersedia");
+            }
+
+            if (data.akta) {
+                var imageUrl = "{{ Storage::url('url') }}".replace('url', data.akta)
+
+                $("#akta-link").attr("href",imageUrl);
+            } else {
+                $("#akta-link").attr("href", "#").text("akta Tidak Tersedia");
+            }
+
+            if (data.profil) {
+                var imageUrl = "{{ Storage::url('url') }}".replace('url', data.profil)
+
+                $("#profil-link").attr("href", imageUrl);
+            } else {
+                $("#profil-link").attr("href", "#").text("profil Tidak Tersedia");
+            }
 
             method = 'POST';
             formUrl = "{{ route('student.update') }}";

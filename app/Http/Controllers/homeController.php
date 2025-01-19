@@ -10,12 +10,14 @@ use App\Models\slider;
 use App\Models\jurusan;
 use App\Models\student;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class homeController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $data = [
             'type_menu' => '',
             'menu'      => 'Info',
@@ -26,14 +28,16 @@ class homeController extends Controller
             'info'      => info::all(),
             'jurusan'   => jurusan::all()
         ];
-        return view('pages.home.index',$data);
+        return view('pages.home.index', $data);
     }
 
-    public function login(){
+    public function login()
+    {
         return view('pages.auth.login');
     }
 
-    public function login_data(Request $request){
+    public function login_data(Request $request)
+    {
 
         $credentials = $request->validate([
             'email' => 'required|email',
@@ -41,25 +45,25 @@ class homeController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $user   = User::where('email',$request->email)->where('role',3)->first();
-            $siswa  = student::where('nisn',$user->nisn)->first();
+            $user   = User::where('email', $request->email)->where('role', 3)->first();
+            // $siswa  = student::where('nisn',$user->nisn)->first();
             $request->session()->regenerate();
 
-            if($user){
+            if ($user) {
                 $message = array(
                     'status' => true,
                     'message' => 'Berhasil Login',
-                    'direct'    =>'/form-pendaftaran'
+                    'direct'    => '/form-pendaftaran'
                 );
-            }else{
+            } else {
                 $message = array(
                     'status' => true,
                     'message' => 'Berhasil Login',
-                    'direct'    =>'/dashboard'
+                    'direct'    => '/dashboard'
                 );
             }
-           // Redirect ke dashboard
-        }else{
+            // Redirect ke dashboard
+        } else {
             $message = array(
                 'status' => false,
                 'message' => 'Gagal Login'
@@ -67,17 +71,19 @@ class homeController extends Controller
         }
 
         echo json_encode($message);
-
     }
 
-    public function registration(){
+    public function registration()
+    {
+
 
 
 
         return view('pages.auth.registration');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
         $data = $request->validate([
             'name' => 'required|string|max:255',
@@ -87,21 +93,21 @@ class homeController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-       $user = new User();
-       $user->name      = $request->name;
-       $user->email     = $request->email;
-       $user->nisn      = $request->nisn;
-       $user->phone     = $request->phone;
-       $user->gender    = $request->gender;
-       $user->role      = 3;
-       $user->password  = Hash::make($request->password);
+        $user = new User();
+        $user->name      = $request->name;
+        $user->email     = $request->email;
+        $user->nisn      = $request->nisn;
+        $user->phone     = $request->phone;
+        $user->gender    = $request->gender;
+        $user->role      = 3;
+        $user->password  = Hash::make($request->password);
 
-        if($user->save()){
+        if ($user->save()) {
             $message = array(
                 'status' => true,
                 'message' => 'Data Berhasil di simpan'
             );
-        }else{
+        } else {
             $message = array(
                 'status' => false,
                 'message' => 'Data gagal di simpan'
@@ -109,19 +115,25 @@ class homeController extends Controller
         }
 
         echo json_encode($message);
-
     }
 
-    public function form_pendaftaran(){
+    public function form_pendaftaran()
+    {
+
+        $params = params::first();
+
         $data = [
-            'user'      =>Auth::user(),
+            'tgl_awal'  => $params->awal_pendaftaran > date('Y-m-d') ? 0 : 1,
+            'tgl_akhir' => $params->akhir_pendaftaran < date('Y-m-d') ? 0 : 1,
+            'user'      => Auth::user(),
             'jurusan'   => jurusan::all()
         ];
-        return view('pages.auth.form_pendaftaran',$data);
+        return view('pages.auth.form_pendaftaran', $data);
     }
 
-    public function getData(){
-        $data = student::with('user')->where('user_id',Auth::user()->id)->first();
+    public function getData()
+    {
+        $data = student::with('user')->where('user_id', Auth::user()->id)->first();
 
         if ($data) {
             echo  json_encode(array(
@@ -135,7 +147,8 @@ class homeController extends Controller
         }
     }
 
-    public function save_pendaftaran(Request $request){
+    public function save_pendaftaran(Request $request)
+    {
 
         $data = $request->validate([
             'name' => 'required|string|max:255',
@@ -147,6 +160,7 @@ class homeController extends Controller
             'alamat' => 'required',
             'nama_ayah' => 'required',
             'nama_ibu' => 'required',
+            'no_ijazah' => 'required',
             'tgl_lahir_ibu' => 'required',
             'tgl_lahir_ayah' => 'required',
             'pekerjaan_ibu' => 'required',
@@ -154,26 +168,28 @@ class homeController extends Controller
             'alamat_orangtua' => 'required',
             'sekolah' => 'required',
             'alamat_sekolah' => 'required',
-            'jurusan' => 'required',
+            'jurusan_id' => 'required',
 
         ]);
 
+        $data['validasi'] = 0;
+
         if ($request->file('ijazah')) {
-            $data['ijazah']   = $request->file('ijazah')->store('siswa','public');
+            $data['ijazah']   = $request->file('ijazah')->store('siswa', 'public');
         }
         if ($request->file('kk')) {
-            $data['kk']   = $request->file('kk')->store('siswa','public');
+            $data['kk']   = $request->file('kk')->store('siswa', 'public');
         }
         if ($request->file('akta')) {
-            $data['akta']   = $request->file('akta')->store('siswa','public');
+            $data['akta']   = $request->file('akta')->store('siswa', 'public');
         }
         if ($request->file('profil')) {
-            $data['profil']   = $request->file('profil')->store('siswa','public');
+            $data['profil']   = $request->file('profil')->store('siswa', 'public');
         }
 
         $today = now()->format('Ymd'); // Format tanggal: YYYYMMDD
         $lastRecord = student::whereDate('created_at', now())->orderBy('id', 'desc')->first();
-            // Tentukan nomor urut berikutnya
+        // Tentukan nomor urut berikutnya
         $nextSequence = 1;
         if ($lastRecord) {
             $lastSequence = (int) substr($lastRecord->sequence_number, -3); // Ambil 3 digit terakhir
@@ -187,12 +203,12 @@ class homeController extends Controller
 
         $result = student::create($data);
 
-        if($result){
+        if ($result) {
             $message = array(
                 'status' => true,
                 'message' => 'Data Berhasil di simpan'
             );
-        }else{
+        } else {
             $message = array(
                 'status' => false,
                 'message' => 'Data gagal di simpan'
@@ -200,11 +216,18 @@ class homeController extends Controller
         }
 
         echo json_encode($message);
-
     }
 
-    public function downloadKartu(){
+    public function downloadKartu($id) {
+        $data = [
+            'params'    => params::first(),
+            'student'   => student::with('user', 'jurusan')->where('user_id',$id)->first()
+        ];
 
+        // Render view ke dalam PDF
+        $pdf = Pdf::loadView('pages.auth.print_kartu', $data)
+            ->setPaper([0, 0, 700, 500], 'landscape');
+        return $pdf->download('Kartu Pendafataran.pdf');
     }
 
     public function logout(Request $request)

@@ -37,10 +37,14 @@
                 <nav class="container-fluid">
                     <div class="main_nav">
                         <ul class="main_nav_list">
-                            <li class="main_nav_item"><a href="#">home</a></li>
-                            <li class="main_nav_item"><a href="#">about us</a></li>
-                            <li class="main_nav_item"><a href="courses.html">Info</a></li>
-                            <li class="main_nav_item"><a href="elements.html">Blog</a></li>
+                            <li class="main_nav_item"><a href="#"></a></li>
+                            <li class="main_nav_item"><a href="#"></a></li>
+                            <li class="main_nav_item"><a href="courses.html"></a></li>
+                            <li class="main_nav_item"><a href="elements.html"></a></li>
+                            <li class="main_nav_item"><a href="#"></a></li>
+                            <li class="main_nav_item"><a href="#"></a></li>
+                            <li class="main_nav_item"><a href="courses.html"></a></li>
+                            <li class="main_nav_item"><a href="elements.html"></a></li>
                             <li class="main_nav_item"><a href="/registration">Registration</a></li>
                         </ul>
                     </div>

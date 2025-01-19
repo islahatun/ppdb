@@ -1,7 +1,7 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html">Stisla</a>
+            <a href="index.html">PPDB</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="index.html">St</a>
@@ -20,6 +20,7 @@
                 </ul>
             </li>
             <li class="menu-header">Starter</li>
+            @if (Auth::user()->role ==1)
             <li class="{{ Request::is('jurusan') ? 'active' : '' }}">
                 <a class="nav-link"
                     href="{{ url('jurusan') }}"><i class="far fa-square"></i> <span>Jurusan</span></a>
@@ -31,18 +32,6 @@
             <li class="{{ Request::is('user') ? 'active' : '' }}">
                 <a class="nav-link"
                     href="{{ url('user') }}"><i class="far fa-square"></i> <span>Pengguna</span></a>
-            </li>
-
-            <li class="nav-item dropdown {{ $type_menu === 'report' ? 'active' : '' }}">
-                <a href="#"
-                    class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>Laporan</span></a>
-                <ul class="dropdown-menu">
-                    <li class="{{ Request::is('report_student') ? 'active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ url('report_student') }}">Laporan Pendaftaran Siswa</a>
-                    </li>
-                   
-                </ul>
             </li>
 
             <li class="nav-item dropdown {{ $type_menu === 'settings' ? 'active' : '' }}">
@@ -71,6 +60,24 @@
                     </li>
                 </ul>
             </li>
+
+
+            @endif
+
+            <li class="nav-item dropdown {{ $type_menu === 'report' ? 'active' : '' }}">
+                <a href="#"
+                    class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>Laporan</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ Request::is('report_student') ? 'active' : '' }}">
+                        <a class="nav-link"
+                            href="{{ url('report_student') }}">Laporan Pendaftaran Siswa</a>
+                    </li>
+
+                </ul>
+            </li>
+
+
+
 
         </ul>
 

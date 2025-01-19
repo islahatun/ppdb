@@ -22,39 +22,49 @@
         </tr>
     </table>
 
-    <h3 align="center">LAPORAN PENDAFTAR TAHUN {{ date('Y') }}</h3>
+    <h3 align="center">KARTU PENDAFTARAN</h3>
     <div>
-        <h4> Uang Pendafatarn sebesar {{ $params->uang_daftar }}</h4>
-        <table border="1" cellspacing="0" cellpadding="3">
+       <div style="text-align: center;">
+        <img src="{{ public_path('storage/'.$student->profil) }}" width="200" height="200" alt="Logo">
+       </div>
+<br><br>
+        <table " cellspacing="0" cellpadding="3" widh="100%" >
             <thead>
                 <tr>
-                    <td>No</td>
-                    <td>Nomor pendaftaran</td>
                     <td>Nama</td>
+                    <td>:</td>
+                    <td>{{ $student->user->name }}</td>
+                </tr>
+                <tr>
                     <td>Nisn</td>
+                    <td>:</td>
+                    <td>{{ $student->user->nisn }}</td>
+                </tr>
+                <tr>
                     <td>Alamat</td>
-                    <td>Sekolah Asal</td>
-                    <td>Jurusan Yang dipilih</td>
+                    <td>:</td>
+                    <td>{{ $student->alamat }}</td>
+                </tr>
+                <tr>
+                    <td>Asal Sekolah</td>
+                    <td>:</td>
+                    <td>{{ $student->sekolah }}</td>
+                </tr>
+                <tr>
+                    <td>Jurusan</td>
+                    <td>:</td>
+                    <td>{{ $student->jurusan->jurusan }}</td>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($student as $b)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $b->no_pendaftaran }}</td>
-                        <td>{{ $b->user->name }}</td>
-                        <td>{{ $b->nisn }}</td>
-                        <td>{{ $b->alamat }}</td>
-                        <td>{{ $b->sekolah }}</td>
-                        <td>{{ $b->jurusan->jurusan }}</td>
-                    </tr>
-                @endforeach
-                <tr>
-                    <td colspan="7"> Total : {{ $student->count() * $params->uang_daftar}}</td>
-                </tr>
+
 
             </tbody>
         </table>
+
+        <p>
+            <i>* Uang Pendaftaran {{ $params->uang_daftar }}</i>
+        </p>
     </div>
 
 

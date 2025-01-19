@@ -185,6 +185,13 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <label for="email">No Ijazah</label>
+                                            <input required id="no_ijazah" type="text" class="form-control"
+                                                name="no_ijazah">
+                                            <div class="invalid-feedback">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="email">Ijazah</label>
                                             <input required id="ijazah" type="file" class="form-control"
                                                 name="ijazah">
@@ -208,7 +215,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="email">Jurusan yang akan dituju</label>
-                                            <select required name="jurusan" class="form-control">
+                                            <select required name="jurusan_id" class="form-control">
                                                 <option value=""></option>
                                                 @foreach ($jurusan as $j)
                                                     <option value="{{ $j->id }}">{{ $j->jurusan }}</option>
@@ -218,7 +225,7 @@
                                             <div class="invalid-feedback">
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group" id="registrasi">
                                             <button type="submit" class="btn btn-primary btn-lg btn-block">
                                                 Register
                                             </button>
@@ -276,11 +283,11 @@
                                 </div>
                             </div>
                             <div class="col col-4">
-                                <img id="profil_image" src="" alt="Profil Image" width="400" height="400">
+                                <img id="profil_image" src="" alt="Profil Image" width="350" height="350">
                             </div>
                         </div>
                         <div>
-                            <a href="{{ route('download-kartu') }}" target="blank" class="btn btn-primary">Download Kartu Peserta</a>
+                            <a href="{{ route('download-kartu', ['id' => auth()->user()->id]) }}" target="blank" class="btn btn-primary">Download Kartu Peserta</a>
                         </div>
                     </form>
 
@@ -321,6 +328,7 @@
 
 
 
+
         $("#form_Regis").submit(function(e) {
 
             e.preventDefault();
@@ -356,6 +364,12 @@
         });
 
         $(function() {
+
+            if({{ $tgl_awal }} == 0 || {{ $tgl_akhir }} == 0){
+                $('#registrasi').hide();
+            }
+
+
             $.get("{{ route('getPendaftaran') }}", function(res) {
                 if (res.success) {
                     var data_detail = res.detail;
