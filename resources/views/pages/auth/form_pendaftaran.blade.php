@@ -381,10 +381,14 @@
                         for (var key in data_detail.user) {
                             data_detail['user_' + key] = data_detail.user[key];
                         }
+
+                        data_detail.user_gender = data_detail.user.gender == 1 ? "Laki-laki" : "Perempuan";
                         delete data_detail.user; // Optional: Remove nested user object
                     }
 
                      $("#form_kartu").deserialize(data_detail);
+
+
 
 
 

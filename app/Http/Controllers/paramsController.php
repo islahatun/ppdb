@@ -142,13 +142,15 @@ class paramsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(params $params)
+    public function destroy($id)
     {
+   
+        $params = params::where('id',$id)->first();
         if (Storage::disk('public')->exists($params->logo)) {
 
             Storage::disk('public')->delete($params->logo);
         }
-        if ($params->delete()) {
+        if (params::where('id',$id)->delete()) {
             $message = array(
                 'status' => true,
                 'message' => 'Data Berhasil dihapus'

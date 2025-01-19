@@ -50,9 +50,9 @@
                                                 <th class="text-center">
                                                     #
                                                 </th>
-                                                <th>Judul</th>
+
                                                 <th>Deskripsi</th>
-                                                <th>Gambar</th>
+                                                <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>

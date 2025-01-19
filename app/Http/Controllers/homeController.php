@@ -33,7 +33,10 @@ class homeController extends Controller
 
     public function login()
     {
-        return view('pages.auth.login');
+        $data =[
+            'params'    => params::first(),
+        ];
+        return view('pages.auth.login',$data);
     }
 
     public function login_data(Request $request)
@@ -75,11 +78,11 @@ class homeController extends Controller
 
     public function registration()
     {
+        $data =[
+            'params'    => params::first(),
+        ];
 
-
-
-
-        return view('pages.auth.registration');
+        return view('pages.auth.registration',$data);
     }
 
     public function store(Request $request)
@@ -126,7 +129,8 @@ class homeController extends Controller
             'tgl_awal'  => $params->awal_pendaftaran > date('Y-m-d') ? 0 : 1,
             'tgl_akhir' => $params->akhir_pendaftaran < date('Y-m-d') ? 0 : 1,
             'user'      => Auth::user(),
-            'jurusan'   => jurusan::all()
+            'jurusan'   => jurusan::all(),
+            'params'    => $params
         ];
         return view('pages.auth.form_pendaftaran', $data);
     }
