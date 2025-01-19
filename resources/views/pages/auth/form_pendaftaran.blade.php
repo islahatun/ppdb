@@ -13,6 +13,15 @@
             <h4>Register</h4>
         </div>
 
+        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit()"
+        class="dropdown-item has-icon text-danger">
+        <i class="fas fa-sign-out-alt"></i> Logout
+
+        <form id="logout-form" action="{{ route('logout') }}" method="post" style="display: none;">
+            @csrf
+        </form>
+    </a>
+
 
 
         <div class="card-body">
