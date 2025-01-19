@@ -16,6 +16,13 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer" />
 
+                <!-- Template toastr File -->
+                <link href="{!! asset('assets/toastr/toastr.min.css') !!}" rel="stylesheet">
+                <!-- Template jquery ui File -->
+                 <link href="{!! asset('assets/jquery-ui/jquery-ui.min.css') !!}" rel="stylesheet">
+                <!-- sweetalert -->
+                <link href="{!! asset('assets/sweetalert2/sweetalert2.min.css') !!}" rel="stylesheet">
+
     @stack('style')
 
     <!-- Template CSS -->
@@ -44,8 +51,7 @@
         <section class="section">
             <div class="container mt-5">
                 <div class="row">
-                    <div
-                        class="{{ Request::is('auth-register') ? 'col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2' : 'col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4' }}">
+                    <div class="col-12 col-sm-8 col-md-6 offset-md-3 col-lg-6 offset-lg-3">
                         <!-- Footer -->
                         @include('components.auth-header')
 
@@ -67,7 +73,20 @@
     <script src="{{ asset('library/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('library/jquery.nicescroll/dist/jquery.nicescroll.min.js') }}"></script>
     <script src="{{ asset('library/moment/min/moment.min.js') }}"></script>
+
+
+<script src="{!! asset('assets/jquery-ui/jquery-ui.min.js') !!}"></script>
+{{-- sweet alert --}}
+<script src="{!! asset('assets/sweetalert2/sweetalert2.min.js') !!}"></script>
     <script src="{{ asset('js/stisla.js') }}"></script>
+
+
+{{-- toastr --}}
+<script src="{!! asset('assets/toastr/toastr.min.js') !!}"></script>
+
+ <!-- jquery-deserialize modif -->
+ <script src="{!! asset('assets/node_modules/jquery-deserialize/src/jquery.deserialize.js') !!}"></script>
+
 
     @stack('scripts')
 
